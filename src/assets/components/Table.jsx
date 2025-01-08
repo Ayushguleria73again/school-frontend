@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import Signup from './Signup'
+import { Link } from 'react-router-dom'
+
 
 function Table() {
     const [state, setstate] = useState([])
@@ -59,6 +60,7 @@ function Table() {
                                                     <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">{gender}</td>
                                                     <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                                         <button onClick={() => userdelete(_id)}>Delete</button>
+                                                        <Link to={`/update/${_id}`}>Update</Link>
                                                     </td>
                                                 </tr>
                                             );
@@ -70,7 +72,7 @@ function Table() {
                     </div>
                 </div>
             </div>
-            <Signup/>
+            
         </>
     )
 }

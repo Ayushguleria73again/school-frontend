@@ -1,13 +1,18 @@
 import Table from "./assets/components/Table"
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Signup from "./assets/components/Signup"
+import Update from "./assets/components/Update"
 
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <Table/>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Table />} />
+          <Route path="/signup" element={<Signup/>} />
+          <Route path="/update/:id" element={<Update/>} />
+        </Routes>
+      </Router>
     </>
 
   )
