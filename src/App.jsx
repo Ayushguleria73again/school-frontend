@@ -2,6 +2,7 @@ import Table from "./assets/components/Table"
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Signup from "./assets/components/Signup"
 import Update from "./assets/components/Update"
+import Mailer from "./assets/components/MAiler"
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route path="/signup" element={<Signup/>} />
           <Route path="/update/:id" element={<Update/>} />
         </Routes>
+        <Mailer/>
       </Router>
     </>
 
