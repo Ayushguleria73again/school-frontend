@@ -54,7 +54,6 @@ function Update() {
             }
         } catch (error) {
             console.log(error);
-            
         }
         }
         fetchdata()
