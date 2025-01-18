@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Signup from "./assets/components/Signup"
 import Update from "./assets/components/Update"
 import Mailer from "./assets/components/MAiler"
+import Login from "./assets/components/Login"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/update/:id" element={<Update/>} />
         </Routes>
         <Mailer/>
+        <Login/>
       </Router>
     </>
 
