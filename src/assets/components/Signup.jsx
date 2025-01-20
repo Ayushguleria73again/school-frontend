@@ -1,22 +1,42 @@
 import { useState } from "react"
 
 function Signup() {
-    const [state, setstate] = useState({})
+    const [state, setstate] = useState({
+        email:"",
+        password:"",
+        gender:"",
+        name:"",
+        last:"",
+        phone:"",
+        age:""
+    })
+    const [files,setfiles] = useState(null)
     const handelvalue = (e) => {
         setstate({
             ...state,
             [e.target.name]: e.target.value
         })
     }
+    const handelvalueFile = (e)=>{
+        setfiles(e.target.files[0])
+    }
     const submitValue = async (e) => {
         e.preventDefault();  
+        const file = new FormData()
+        file.append("email",state.email)
+        file.append("password",state.password)
+        file.append("gender",state.gender)
+        file.append("name",state.name)
+        file.append("last",state.last)
+        file.append("phone",state.phone)
+        file.append("age",state.age)
+        if(files){
+            file.append("files",files)
+        }
         try {
             const response = await fetch("http://localhost:8000/signup", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",  
-                },
-                body: JSON.stringify(state), 
+                body:file, 
             });
             const data = await response.json(); 
             console.log("Response:", data);
@@ -33,7 +53,7 @@ function Signup() {
                         type="email"
                         name="email"
                         id="floating_email"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         required
                     />
@@ -49,7 +69,7 @@ function Signup() {
                         type="password"
                         name="password"
                         id="floating_password"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         required
                     />
@@ -65,7 +85,7 @@ function Signup() {
                         type="text"
                         name="gender"
                         id="floating_repeat_password"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         required
                     />
@@ -82,7 +102,7 @@ function Signup() {
                             type="text"
                             name="name"
                             id="floating_first_name"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             required
                         />
@@ -98,7 +118,7 @@ function Signup() {
                             type="text"
                             name="last"
                             id="floating_last_name"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             required
                         />
@@ -116,7 +136,7 @@ function Signup() {
                             type="tel"
                             name="phone"
                             id="floating_phone"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             required
                         />
@@ -132,7 +152,7 @@ function Signup() {
                             type="text"
                             name="age"
                             id="floating_company"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             required
                         />
@@ -143,6 +163,23 @@ function Signup() {
                             Age
                         </label>
                     </div>
+                    <div className="relative z-0 w-full mb-5 group">
+                        <input onChange={handelvalueFile}
+                            type="file"
+                            name="files"
+                            id="floating_company"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            required
+                        />
+                        <label
+                            htmlFor="floating_company"
+                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                            Files
+                        </label>
+                    </div>
+                    
                 </div>
                 <button
                     type="submit"
