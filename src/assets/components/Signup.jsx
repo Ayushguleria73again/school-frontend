@@ -1,4 +1,6 @@
 import { useState } from "react"
+import {toast} from "react-toastify"
+import { Bounce } from "react-toastify"
 
 function Signup() {
     const [state, setstate] = useState({
@@ -40,6 +42,31 @@ function Signup() {
             });
             const data = await response.json(); 
             console.log("Response:", data);
+            if(data.message ===  "Phone number already exists"){
+                toast.warn(data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    });
+            }
+            toast.success(data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
+            
         } catch (error) {
             console.error("Error submitting form:", error);
         }

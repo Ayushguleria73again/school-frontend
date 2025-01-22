@@ -59,7 +59,7 @@ function Table() {
                                             const { _id, name, last, age, gender, files } = data;
                                             return (
                                                 <tr key={_id} className="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                                    <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap"><img
+                                                    <td><img
                                                         src={`http://localhost:8000/${files}`}
                                                         alt={files}
                                                         width="50px"
