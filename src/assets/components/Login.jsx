@@ -1,10 +1,17 @@
 import { useState } from "react";
+import { LuEyeClosed } from "react-icons/lu";
+import { LuEye } from "react-icons/lu";
 
 function Login() {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [state, setState] = useState({});
     const [loading, setLoading] = useState(false);
+    const [view,setView] = useState(true)
+
+    const viewPassword = ()=>{
+      setView(!view)
+    }
 
     const handleValue = (e) => {
         setState({
@@ -93,12 +100,13 @@ function Login() {
                                             <label className="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Password</label>
                                         </div>
                                         <div className="flex items-center">
-                                            <input
-                                                type="password"
+                                        <input
+                                                type={view?"password":"text"}~
                                                 name="password"
                                                 onChange={handleValue}
                                                 className="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
                                             />
+                                            <span onClick={viewPassword}>{view ? <LuEyeClosed/>:<LuEye/>}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +115,7 @@ function Login() {
                                         <input type="checkbox" name="remember" className="outline-none focus:outline focus:outline-sky-300" />
                                         <span className="text-xs">Remember me</span>
                                     </label>
-                                    <a className="text-sm font-medium text-foreground underline" href="/forgot-password">Forgot password?</a>
+                                    <a className="tex-sm font-medium text-foreground underline" href="/forgot-password">Forgot password?</a>
                                 </div>
                                 <div className="mt-4 flex items-center justify-end gap-x-2">
                                     <a className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:ring hover:ring-white h-10 px-4 py-2 duration-200" href="/register">Register</a>
