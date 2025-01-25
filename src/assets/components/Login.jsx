@@ -101,7 +101,7 @@ function Login() {
                                         </div>
                                         <div className="flex items-center">
                                         <input
-                                                type={view?"password":"text"}~
+                                                type={view?"password":"text"}
                                                 name="password"
                                                 onChange={handleValue}
                                                 className="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
