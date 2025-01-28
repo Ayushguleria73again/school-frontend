@@ -11,7 +11,7 @@ function Images() {
             .catch(err => console.log(err)
             )
     }, [])
-    console.log(state);
+
 
     return (
 

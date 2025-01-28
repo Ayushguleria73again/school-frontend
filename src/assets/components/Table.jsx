@@ -1,27 +1,45 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 
 function Table() {
-    const [state, setstate] = useState([])
+    const [state, setstate] = useState({
+        data: []
+    })
 
+    // useEffect(() => {
+    //     fetch('http://localhost:8000/api')
+    //         .then(response => response.json())
+    //         .then(json => setstate(json))
+    //         .catch(err => console.log(err))
+    // }, [])
+    // console.log(state);
     useEffect(() => {
-        fetch('http://localhost:8000/api')
-            .then(response => response.json())
-            .then(json => setstate(json))
+        axios.get("http://localhost:8000/api")
+            // .then(res => res.json())
+            .then(res => setstate(res))
             .catch(err => console.log(err))
     }, [])
-    console.log(state);
-
+    console.log(state.data);
 
     const userdelete = async (id) => {
-        await fetch(`http://localhost:8000/api/${id}`, {
-            method: "DELETE"
-        })
-            .then(() => {
-                setstate((prevstate) => prevstate.filter((mac) => mac._id !== id));
-            })
-            .catch((err) => console.log(err));
+        // await fetch(`http://localhost:8000/api/${id}`, {
+        //     method: "DELETE"
+        // })
+        //     .then(() => {
+        //         setstate((prevstate) => prevstate.filter((mac) => mac._id !== id));
+        //     })
+        //     .catch((err) => console.log(err));
+        try {
+            await axios.delete(`http://localhost:8000/api/${id}`)
+            setstate((prevstate) => ({
+                ...prevstate,
+               data: prevstate.data.filter((mac) => mac._id !== id)
+            }));
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -55,7 +73,7 @@ function Table() {
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                                        {state.map((data) => {
+                                        {state.data.length > 0 ? state.data.map((data) => {
                                             const { _id, name, last, age, gender, files } = data;
                                             return (
                                                 <tr key={_id} className="hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -76,7 +94,7 @@ function Table() {
                                                     </td>
                                                 </tr>
                                             );
-                                        })}
+                                        }) : <p>no data found</p>}
                                     </tbody>
                                 </table>
                             </div>

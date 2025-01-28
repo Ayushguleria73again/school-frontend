@@ -1,7 +1,7 @@
 import { useState } from "react"
 import {toast} from "react-toastify"
 import { Bounce } from "react-toastify"
-
+import axios from "axios"
 function Signup() {
     const [state, setstate] = useState({
         email:"",
@@ -36,12 +36,18 @@ function Signup() {
             file.append("files",files)
         }
         try {
-            const response = await fetch("http://localhost:8000/signup", {
-                method: "POST",
-                body:file, 
+            // const response = await fetch("http://localhost:8000/signup", {
+            //     method: "POST",
+            //     body:file, 
+            // });
+            // const data = await response.json(); 
+            // console.log("Response:", data);
+            const response = await axios.post("http://localhost:8000/signup",file,{
+                headers:"Content-Type : multipart/form-data"
             });
-            const data = await response.json(); 
-            console.log("Response:", data);
+            const data = response; 
+            console.log("Response:",data);
+            
             if(data.message ===  "Phone number already exists"){
                 toast.warn(data.message, {
                     position: "top-right",

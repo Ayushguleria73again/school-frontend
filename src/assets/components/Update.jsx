@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import axios from "axios"
 
 function Update() {
     const { id } = useParams();
@@ -11,57 +12,84 @@ function Update() {
         phone: "",
         email: "",
         files: ""
-    })
+    });
+
     const handelvalue = (e) => {
         setstate({
             ...state,
             [e.target.name]: e.target.value
-        })
-    }
+        });
+    };
+
+    const handelFileChange = (e) => {
+        setstate({
+            ...state,
+            files: e.target.files[0]
+        });
+    };
+
     const submitValue = async (e) => {
-        e.preventDefault();
+        e.preventDefault();  
+        const file = new FormData()
+        file.append("email",state.email)
+        file.append("password",state.password)
+        file.append("gender",state.gender)
+        file.append("name",state.name)
+        file.append("last",state.last)
+        file.append("phone",state.phone)
+        file.append("age",state.age)
+        if(state.files){
+            file.append("files",state.files)
+        }
+      
+        console.log(file);
+        
+        
+        for (let key in state) {
+            if (state[key] !== "") {
+                file.append(key, state[key]);
+            }
+        }
+
         try {
-            const response = await fetch(`http://localhost:8000/api/${id}`, {
-                method: "PATCH",
+            const response = await axios.patch(`http://localhost:8000/api/${id}`, file, {
                 headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(state),
+                    "Content-Type": "multipart/form-data"
+                }
             });
-            const data = await response.json();
-            console.log("Response:", data);
+            console.log("Response:", response.data);
         } catch (error) {
             console.error("Error submitting form:", error);
         }
     };
+
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                const data = await fetch(`http://localhost:8000/api/${id}`)
-                const harley = await data.json()
-                if (data.ok) {
-                    setstate(
-                        {
-                            name: harley.name || "",
-                            last: harley.last || "",
-                            age: harley.age || "",
-                            gender: harley.gender || "",
-                            phone: harley.phone || "",
-                            email: harley.email || "",
-                            files: harley.files || ""
-                        }
-                    )
+                const data = await axios.get(`http://localhost:8000/api/${id}`);
+                const harley = data.data;
+                console.log(harley.name);
+                
+                if (data.status === 200) {
+                    setstate({
+                        name: harley.name || "",
+                        last: harley.last || "",
+                        age: harley.age || "",
+                        gender: harley.gender || "",
+                        phone: harley.phone || "",
+                        email: harley.email || "",
+                        files: harley.files || ""
+                    });
                 } else {
-                    console.log("user not found")
+                    console.log("User not found");
                 }
             } catch (error) {
                 console.log(error);
             }
-        }
-        fetchdata()
+        };
+        fetchdata();
+    }, [id]);
 
-
-    }, [id])
     return (
         <>
             <form className="max-w-md mx-auto" onSubmit={submitValue}>
@@ -173,6 +201,7 @@ function Update() {
                 </div>
                 <div className="relative z-0 w-full mb-5 group">
                     <input
+                    onChange={ handelFileChange}
                         type="file"
                         name="files"
                         id="floating_company"
