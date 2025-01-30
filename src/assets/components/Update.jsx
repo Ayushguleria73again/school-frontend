@@ -30,34 +30,29 @@ function Update() {
 
     const submitValue = async (e) => {
         e.preventDefault();  
-        const file = new FormData()
-        file.append("email",state.email)
-        file.append("password",state.password)
-        file.append("gender",state.gender)
-        file.append("name",state.name)
-        file.append("last",state.last)
-        file.append("phone",state.phone)
-        file.append("age",state.age)
+        const fileData = new FormData()
+        fileData.append("email",state.email)
+        fileData.append("gender",state.gender)
+        fileData.append("name",state.name)
+        fileData.append("last",state.last)
+        fileData.append("phone",state.phone)
+        fileData.append("age",state.age)
         if(state.files){
-            file.append("files",state.files)
+            fileData.append("files",state.files)
         }
       
-        console.log(file);
-        
-        
-        for (let key in state) {
-            if (state[key] !== "") {
-                file.append(key, state[key]);
-            }
-        }
-
+        console.log(fileData);
         try {
-            const response = await axios.patch(`http://localhost:8000/api/${id}`, file, {
+            const response = await axios.patch(`http://localhost:8000/api/${id}`, fileData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
             });
-            console.log("Response:", response.data);
+            if (response.status == 200) {
+                console.log("data update successfully",fileData);
+                
+            }
+            // console.log("Response:", response.data);
         } catch (error) {
             console.error("Error submitting form:", error);
         }
@@ -204,13 +199,13 @@ function Update() {
                     onChange={ handelFileChange}
                         type="file"
                         name="files"
-                        id="floating_company"
+                        id="floating_File"
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         required
                     />
                     <label
-                        htmlFor="floating_company"
+                        htmlFor="floating_File"
                         className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                     >
                         Files
