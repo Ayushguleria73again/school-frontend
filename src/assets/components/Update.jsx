@@ -30,29 +30,40 @@ function Update() {
 
     const submitValue = async (e) => {
         e.preventDefault();  
-        const fileData = new FormData()
-        fileData.append("email",state.email)
-        fileData.append("gender",state.gender)
-        fileData.append("name",state.name)
-        fileData.append("last",state.last)
-        fileData.append("phone",state.phone)
-        fileData.append("age",state.age)
-        if(state.files){
-            fileData.append("files",state.files)
+        
+        // Log the state values to see if the data is there
+        console.log("State before appending to FormData:", state);
+    
+        const fileData = new FormData();
+    
+        // Append the data to FormData
+        fileData.append("email", state.email);
+        fileData.append("gender", state.gender);
+        fileData.append("name", state.name);
+        fileData.append("last", state.last);
+        fileData.append("phone", state.phone);
+        fileData.append("age", state.age);
+    
+        // Check if a file is selected and append it
+        if (state.files) {
+            fileData.append("files", state.files);
         }
-      
-        console.log(fileData);
+    
+        // Log FormData content to ensure data is correctly appended
+        fileData.forEach((value, key) => {
+            console.log(key, value);  // This will log all key-value pairs in FormData
+        });
+    
         try {
             const response = await axios.patch(`http://localhost:8000/api/${id}`, fileData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
             });
-            if (response.status == 200) {
-                console.log("data update successfully",fileData);
-                
+            
+            if (response.status === 200) {
+                console.log("Data updated successfully", response.data);
             }
-            // console.log("Response:", response.data);
         } catch (error) {
             console.error("Error submitting form:", error);
         }
