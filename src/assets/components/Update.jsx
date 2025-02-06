@@ -53,7 +53,6 @@ function Update() {
         fileData.forEach((value, key) => {
             console.log(key, value);  // This will log all key-value pairs in FormData
         });
-    
         try {
             const response = await axios.patch(`http://localhost:8000/api/${id}`, fileData, {
                 headers: {

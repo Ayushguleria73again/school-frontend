@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { LuEyeClosed } from "react-icons/lu";
 import { LuEye } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 function Login() {
     const [data, setData] = useState(null);
@@ -118,7 +119,7 @@ function Login() {
                                     <a className="tex-sm font-medium text-foreground underline" href="/forgot-password">Forgot password?</a>
                                 </div>
                                 <div className="mt-4 flex items-center justify-end gap-x-2">
-                                    <a className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:ring hover:ring-white h-10 px-4 py-2 duration-200" href="/register">Register</a>
+                                    <Link className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:ring hover:ring-white h-10 px-4 py-2 duration-200" to={"/signup"}>Register</Link>
                                     <button
                                         onClick={submitValue}
                                         className="font-semibold hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 inline-flex items-center justify-center rounded-md text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-black h-10 px-4 py-2"

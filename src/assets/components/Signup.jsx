@@ -80,7 +80,7 @@ function Signup() {
     
     return (
         <>
-            <form className="max-w-md mx-auto" onSubmit={submitValue}>
+            <form className="w-full h-[100vh] flex justify-center items-center flex-col" onSubmit={submitValue}>
                 <div className="relative z-0 w-full mb-5 group">
                     <input onChange={handelvalue}
                         type="email"
